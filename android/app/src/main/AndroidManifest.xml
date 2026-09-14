@@ -19,7 +19,7 @@
         android:label="Nexa"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
-        android:usesCleartextTraffic="false">
+        android:usesCleartextTraffic="True">
         <activity
             android:name=".MainActivity"
             android:exported="true"
