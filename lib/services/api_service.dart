@@ -22,7 +22,7 @@ class ApiService {
       return saved;
     }
     // اگه هنوز resolve نشده و سیستم تک‌هاستی هست، همینجا آدرس ثابت‌تون رو بذارید:
-    return 'https://10.155.236.72/school-app/API/backend/index.php';
+    return 'https://10.155.236.72/school-app/API/backend/';
   }
 
   /// از هاب مرکزی می‌پرسه «این کد مدرسه مال کدوم هاسته» و نتیجه رو ذخیره می‌کنه.
