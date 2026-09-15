@@ -4,7 +4,7 @@ import 'package:flutter_webrtc/flutter_webrtc.dart';
 import 'package:socket_io_client/socket_io_client.dart' as io;
 
 /// آدرس سرور سیگنالینگ (VPS). بعد از دیپلوی، این رو با آدرس واقعی عوض کنید.
-const String kSignalingUrl = 'https://realtime.yourdomain.com';
+const String kSignalingUrl ='http://10.155.236.72/school-app/api';
 
 class RemoteParticipant {
   final String socketId;
