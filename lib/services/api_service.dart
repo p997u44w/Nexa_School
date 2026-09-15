@@ -2,7 +2,26 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
-
+try {
+  print('🌐 Sending request to: $url');  // ← URL کامل رو چاپ کن
+  
+  final response = await http.post(
+    Uri.parse(url),
+    headers: {'Content-Type': 'application/json'},
+    body: jsonEncode(data),
+  );
+  
+  print('📥 Status Code: ${response.statusCode}');
+  print('📥 Response Body: ${response.body}');
+  
+  if (response.statusCode == 200) {
+    // موفق
+  } else {
+    // خطا
+  }
+} catch (e) {
+  print('❌ Error: $e');  // ← خطا رو چاپ کن
+}
 class ApiService {
   // آدرس هاب مرکزی — اولین جایی که اپ برای پیدا کردن هاست هر مدرسه بهش وصل می‌شه.
   // اگه سیستم چندهاستی نمی‌خواید و فقط یه بک‌اند دارید، این رو خالی بذارید
