@@ -7,7 +7,7 @@ class ApiService {
   // آدرس هاب مرکزی — اولین جایی که اپ برای پیدا کردن هاست هر مدرسه بهش وصل می‌شه.
   // اگه سیستم چندهاستی نمی‌خواید و فقط یه بک‌اند دارید، این رو خالی بذارید
   // و مستقیم مقدار baseUrl رو به آدرس همون بک‌اند ثابت کنید.
-  static const String hubUrl ='http://192.168.1.6/school-app/api';
+  static const String hubUrl =;
 
   static String? _resolvedBaseUrl;
 
@@ -22,7 +22,7 @@ class ApiService {
       return saved;
     }
     // اگه هنوز resolve نشده و سیستم تک‌هاستی هست، همینجا آدرس ثابت‌تون رو بذارید:
-    return 'http://192.168.1.6/school-app/api';
+    return 'https://10.155.236.72/school-app/API/backend/index.php';
   }
 
   /// از هاب مرکزی می‌پرسه «این کد مدرسه مال کدوم هاسته» و نتیجه رو ذخیره می‌کنه.
