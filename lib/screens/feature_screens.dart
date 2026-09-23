@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import '../services/api_service.dart';
+import '../widgets/dashboard_scaffold.dart';
+import 'online_class_list_screen.dart';
 
 class _Base extends StatelessWidget {
   final String title;
   final Widget child;
-
   const _Base({required this.title, required this.child});
 
   @override
@@ -14,7 +15,7 @@ class _Base extends StatelessWidget {
       );
 }
 
-// ==================== Classes Screen ====================
+// ================== ClassesScreen ==================
 
 class ClassesScreen extends StatefulWidget {
   const ClassesScreen({super.key});
@@ -27,12 +28,6 @@ class _ClassesScreenState extends State<ClassesScreen> {
   List _items = [];
   bool loading = true;
 
-  @override
-  void initState() {
-    super.initState();
-    load();
-  }
-
   Future<void> load() async {
     final r = await ApiService.get('manager/list-classes');
     if (mounted) {
@@ -43,10 +38,16 @@ class _ClassesScreenState extends State<ClassesScreen> {
     }
   }
 
+  @override
+  void initState() {
+    super.initState();
+    load();
+  }
+
   Future<void> add() async {
     final n = TextEditingController();
     final g = TextEditingController();
-    final ok = await showDialog(
+    final ok = await showDialog<bool>(
       context: context,
       builder: (_) => AlertDialog(
         title: const Text('افزودن کلاس'),
@@ -76,6 +77,7 @@ class _ClassesScreenState extends State<ClassesScreen> {
         ],
       ),
     );
+
     if (ok == true) {
       final r = await ApiService.post(
         'manager/add-class',
@@ -135,11 +137,10 @@ class _ClassesScreenState extends State<ClassesScreen> {
       );
 }
 
-// ==================== People Screen ====================
+// ================== PeopleScreen ==================
 
 class PeopleScreen extends StatefulWidget {
   final bool teachers;
-
   const PeopleScreen({super.key, required this.teachers});
 
   @override
@@ -150,12 +151,6 @@ class _PeopleScreenState extends State<PeopleScreen> {
   List _items = [];
   List _classes = [];
   bool loading = true;
-
-  @override
-  void initState() {
-    super.initState();
-    load();
-  }
 
   Future<void> load() async {
     final r = await ApiService.get(
@@ -171,12 +166,19 @@ class _PeopleScreenState extends State<PeopleScreen> {
     }
   }
 
+  @override
+  void initState() {
+    super.initState();
+    load();
+  }
+
   Future<void> add() async {
     final name = TextEditingController();
     final u = TextEditingController();
     final p = TextEditingController();
     int? cid;
-    final ok = await showDialog(
+
+    final ok = await showDialog<bool>(
       context: context,
       builder: (_) => StatefulBuilder(
         builder: (c, s) => AlertDialog(
@@ -187,9 +189,8 @@ class _PeopleScreenState extends State<PeopleScreen> {
               children: [
                 TextField(
                   controller: name,
-                  decoration: const InputDecoration(
-                    labelText: 'نام و نام خانوادگی',
-                  ),
+                  decoration:
+                      const InputDecoration(labelText: 'نام و نام خانوادگی'),
                 ),
                 TextField(
                   controller: u,
@@ -231,6 +232,7 @@ class _PeopleScreenState extends State<PeopleScreen> {
         ),
       ),
     );
+
     if (ok == true) {
       final body = {
         'full_name': name.text.trim(),
@@ -298,11 +300,10 @@ class _PeopleScreenState extends State<PeopleScreen> {
       );
 }
 
-// ==================== Announcements Screen ====================
+// ================== AnnouncementsScreen ==================
 
 class AnnouncementsScreen extends StatefulWidget {
   final bool student;
-
   const AnnouncementsScreen({super.key, this.student = false});
 
   @override
@@ -312,12 +313,6 @@ class AnnouncementsScreen extends StatefulWidget {
 class _AnnouncementsScreenState extends State<AnnouncementsScreen> {
   List _items = [];
   bool loading = true;
-
-  @override
-  void initState() {
-    super.initState();
-    load();
-  }
 
   Future<void> load() async {
     final r = await ApiService.get(
@@ -333,10 +328,16 @@ class _AnnouncementsScreenState extends State<AnnouncementsScreen> {
     }
   }
 
+  @override
+  void initState() {
+    super.initState();
+    load();
+  }
+
   Future<void> add() async {
     final t = TextEditingController();
     final b = TextEditingController();
-    final ok = await showDialog(
+    final ok = await showDialog<bool>(
       context: context,
       builder: (_) => AlertDialog(
         title: const Text('اطلاعیه جدید'),
@@ -366,6 +367,7 @@ class _AnnouncementsScreenState extends State<AnnouncementsScreen> {
         ],
       ),
     );
+
     if (ok == true) {
       final r = await ApiService.post(
         'manager/add-announcement',
@@ -415,7 +417,7 @@ class _AnnouncementsScreenState extends State<AnnouncementsScreen> {
       );
 }
 
-// ==================== Teacher Classes Screen ====================
+// ================== TeacherClassesScreen ==================
 
 class TeacherClassesScreen extends StatefulWidget {
   const TeacherClassesScreen({super.key});
@@ -476,12 +478,11 @@ class _TeacherClassesScreenState extends State<TeacherClassesScreen> {
       );
 }
 
-// ==================== Teacher Class Detail ====================
+// ================== TeacherClassDetail ==================
 
 class TeacherClassDetail extends StatefulWidget {
   final dynamic classId;
   final String name;
-
   const TeacherClassDetail({
     super.key,
     required this.classId,
@@ -559,7 +560,7 @@ class _TeacherClassDetailState extends State<TeacherClassDetail> {
       );
 }
 
-// ==================== Assignment Screen ====================
+// ================== AssignmentScreen ==================
 
 class AssignmentScreen extends StatefulWidget {
   const AssignmentScreen({super.key});
@@ -608,9 +609,8 @@ class _AssignmentScreenState extends State<AssignmentScreen> {
                         context: c,
                         builder: (_) => AlertDialog(
                           title: Text(x['title'] ?? ''),
-                          content: Text(
-                            x['description'] ?? 'توضیحی ثبت نشده',
-                          ),
+                          content:
+                              Text(x['description'] ?? 'توضیحی ثبت نشده'),
                           actions: [
                             TextButton(
                               onPressed: () => Navigator.pop(c),
@@ -626,7 +626,7 @@ class _AssignmentScreenState extends State<AssignmentScreen> {
       );
 }
 
-// ==================== My Teachers Screen ====================
+// ================== MyTeachersScreen ==================
 
 class MyTeachersScreen extends StatefulWidget {
   const MyTeachersScreen({super.key});
@@ -664,12 +664,11 @@ class _MyTeachersScreenState extends State<MyTeachersScreen> {
       );
 }
 
-// ==================== Admin Settings Screen ====================
+// ================== AdminSettingsScreen ==================
 
 class AdminSettingsScreen extends StatefulWidget {
   final String schoolId;
   final String schoolName;
-
   const AdminSettingsScreen({
     super.key,
     required this.schoolId,
@@ -681,7 +680,7 @@ class AdminSettingsScreen extends StatefulWidget {
 }
 
 class _AdminSettingsScreenState extends State<AdminSettingsScreen> {
-  Map f = {};
+  Map<String, bool> f = {};
   final limit = TextEditingController();
   String p = '#2F5FFF';
   String s = '#FFB020';
@@ -698,8 +697,7 @@ class _AdminSettingsScreenState extends State<AdminSettingsScreen> {
     );
     if (r['success'] == true && r['data'] is List) {
       for (final x in r['data']) {
-        f[x['feature_key']] =
-            (x['enabled'] == 1 || x['enabled'] == true);
+        f[x['feature_key']] = (x['enabled'] == 1 || x['enabled'] == true);
       }
     }
     final schools = await ApiService.get('admin/list-schools');
@@ -790,7 +788,7 @@ class _AdminSettingsScreenState extends State<AdminSettingsScreen> {
       );
 }
 
-// ==================== Add Assignment Screen ====================
+// ================== AddAssignmentScreen ==================
 
 class AddAssignmentScreen extends StatefulWidget {
   const AddAssignmentScreen({super.key});
@@ -896,7 +894,7 @@ class _AddAssignmentScreenState extends State<AddAssignmentScreen> {
       );
 }
 
-// ==================== Messages Screen ====================
+// ================== MessagesScreen ==================
 
 class MessagesScreen extends StatefulWidget {
   const MessagesScreen({super.key});
@@ -941,7 +939,7 @@ class _MessagesScreenState extends State<MessagesScreen> {
           height: 350,
           child: ListView(
             children: messages
-                .map(
+                .map<Widget>(
                   (m) => ListTile(
                     title: Text(
                       m['sender_role'] == 'teacher' ? 'معلم' : 'دانش‌آموز',
